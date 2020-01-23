@@ -5,29 +5,13 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <Counter />
-      </div>
-    );
-  }
-}
 
-class Header extends Component {
-  render() {
-    return (
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">Welcome to React</h1>
-      </header>
-    );
+  constructor() {
+    super()
+    this.state ={
+      count:0 
+    }
   }
-}
-
-class Counter extends Component {
-  state = { count: 0 };
 
   increment = () => {
     this.setState(prevState => ({ count: prevState.count + 1 }));
@@ -45,11 +29,34 @@ class Counter extends Component {
 
   render() {
     return (
+      <div className="App">
+        <Header increment={this.increment} decrement={this.decrement} count={this.state.count}/>
+        <Counter increment={this.increment} decrement={this.decrement} count={this.state.count} />
+      </div>
+    );
+  }
+}
+
+class Header extends Component {
+  render() {
+    return (
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+    <h1 className="App-title">{`The current count is less than ${this.props.count + 5 - (this.props.count % 5 )}`}</h1>
+      </header>
+    );
+  }
+}
+
+class Counter extends Component {
+
+  render() {
+    return (
       <div className="Counter">
-        <h1>{this.state.count}</h1>
-        <button onClick={this.decrement}> - </button>
-        <button onClick={this.increment}> + </button>
-        <h3>{this.renderDescription()}</h3>
+        <h1>{this.props.count}</h1>
+        <button onClick={this.props.decrement}> - </button>
+        <button onClick={this.props.increment}> + </button>
+        {/* <h3>{this.renderDescription()}</h3> */}
       </div>
     );
   }
